@@ -10,7 +10,19 @@
       <br>
       <p>Say something to the world <input type="text" ng-model="greeting" ng-init="greeting='Hello, '"></p>
       <p>{{ greeting }} world!</p>
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <br>
+      <input type="text" ng-model="name" placeholder="What is your name?">
+      <h1>My name is: {{name}}</h1>
+      <br>
+      <select ng-model="string">
+        <option value="">Select your favorite pet</option>
+        <option value="dogs">Dogs</option>
+        <option value="cats">Cats</option>
+        <option value="both">Both</option>
+        <option value="none">None</option>
+      </select>
+      <h3>I love {{string}}</h3>
     </body>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   </html>
 </div>
