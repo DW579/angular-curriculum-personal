@@ -1,170 +1,178 @@
 <!DOCTYPE html>
-<div ng-app="">
-  <html>
-    <head>
-      <meta charset="utf-8">
-      <title>{{ greeting }} world</title>
-      <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
-    <body>
-      <h1>Part 1: Intro and Setup</h1>
-      <p>{{ 6 + 1}}</p>
-      <p>Say something to the world <input type="text" ng-model="greeting" ng-init="greeting='Hello, '"></p>
-      <p>{{ greeting }} world!</p>
-      <p>1. Why learn Angular JS over other frameworks like Ember, Backbone, Knockout, etc?</p>
-      <p>2. People have some very strong opinions about Angular. What are 3 common complaints people have about Angular?</p>
-      <p>3. Is Angular an MVC framework?</p>
-      <p>4. Turn to the Angular docs. Find ng-app. What is it and what does it do? What does ng stand for?</p>
-      <p>----------------------------------</p>
-      <h1>Part 2: Data Binding</h1>
-      <input type="text" ng-model="name" placeholder="What is your name?">
-      <h2>My name is: {{name}}</h2>
-      <br>
-      <select ng-model="string">
-        <option value="">Select your favorite pet</option>
-        <option value="dogs">Dogs</option>
-        <option value="cats">Cats</option>
-        <option value="both">Both</option>
-        <option value="none">None</option>
+<html ng-app="firstApp">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ greeting }} world</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <h1>Part 1: Intro and Setup</h1>
+    <p>{{ 6 + 1}}</p>
+    <p>Say something to the world <input type="text" ng-model="greeting" ng-init="greeting='Hello, '"></p>
+    <p>{{ greeting }} world!</p>
+    <p>1. Why learn Angular JS over other frameworks like Ember, Backbone, Knockout, etc?</p>
+    <p>2. People have some very strong opinions about Angular. What are 3 common complaints people have about Angular?</p>
+    <p>3. Is Angular an MVC framework?</p>
+    <p>4. Turn to the Angular docs. Find ng-app. What is it and what does it do? What does ng stand for?</p>
+    <p>----------------------------------</p>
+    <h1>Part 2: Data Binding</h1>
+    <input type="text" ng-model="name" placeholder="What is your name?">
+    <h2>My name is: {{name}}</h2>
+    <br>
+    <select ng-model="string">
+      <option value="">Select your favorite pet</option>
+      <option value="dogs">Dogs</option>
+      <option value="cats">Cats</option>
+      <option value="both">Both</option>
+      <option value="none">None</option>
+    </select>
+    <h3>I love {{string}}</h3>
+    <p>----------------------------------</p>
+    <h1>Part 4: Expressions and Built-In Filters</h1>
+    <p>1 + 2 = {{ 1 + 2 }}</p>
+    <p>My name is {{"BoJack" + "Horseman"}}</p>
+    <p>The array [99, 43, 22] is {{ [99,43,22].length }} items long.</p>
+    <p>{{3.14159265359 | currency:"€"}}</p>
+    <br>
+    <h2>Please say something</h2>
+    <input type="text" ng-model="speak">
+    <p>Yelling: {{speak | uppercase}}</p>
+    <p>whispering: {{speak | lowercase}}</p>
+    <br>
+    <p>How many digits of pi do you want?
+      <select ng-model='digitPi'>
+        <option value='0'>0</option>
+        <option value='1'>1</option>
+        <option value='2'>2</option>
+        <option value='3'>3</option>
+        <option value='4'>4</option>
+        <option value='5'>5</option>
+        <option value='6'>6</option>
+        <option value='7'>7</option>
       </select>
-      <h3>I love {{string}}</h3>
-      <p>----------------------------------</p>
-      <h1>Part 4: Expressions and Built-In Filters</h1>
-      <p>1 + 2 = {{ 1 + 2 }}</p>
-      <p>My name is {{"BoJack" + "Horseman"}}</p>
-      <p>The array [99, 43, 22] is {{ [99,43,22].length }} items long.</p>
-      <p>{{3.14159265359 | currency:"€"}}</p>
-      <br>
-      <h2>Please say something</h2>
-      <input type="text" ng-model="speak">
-      <p>Yelling: {{speak | uppercase}}</p>
-      <p>whispering: {{speak | lowercase}}</p>
-      <br>
-      <p>How many digits of pi do you want?
-        <select ng-model='digitPi'>
-          <option value='0'>0</option>
-          <option value='1'>1</option>
-          <option value='2'>2</option>
-          <option value='3'>3</option>
-          <option value='4'>4</option>
-          <option value='5'>5</option>
-          <option value='6'>6</option>
-          <option value='7'>7</option>
-        </select>
-      </p>
-      <p>Here you go! The first {{digitPi}} digit of pi!</p>
-      <p>{{3.14159265359| number:digitPi}}
-      <br>
-      <h2>Super Useful Tip Calculator</h2>
-      <p>How much did your meal cost?<input type='number' ng-model='cost'></p>
-      <p>How much do you want to tip?
-        <select ng-model='percentage'>
-          <option value='10'>10%</option>
-          <option value='15'>15%</option>
-          <option value='20'>20%</option>
-        </select>
-      </p>
-      <h3>Subtotal: {{cost | currency}}</h3>
-      <h3>Tip Total: {{cost / percentage | currency}}</h3>
-      <div>{{ this }}
-        <p>What does this tell you about the context of Angular expressions?</p>
-      </div>
-      <h2>Mad Lips</h2>
-      <h3>Please fill out the following form!</h3>
-      <p>Boy's Name</p>
-      <input type="text" ng-model="boy" placeholder="Enter a boy's name...">
-      <p>Adjective</p>
-      <input type="text" ng-model="adjective" placeholder="Enter an adjective...">
-      <p>Plural Noun</p>
-      <input type="text" ng-model="pone" placeholder="Enter a plural noun...">
-      <p>Plural Noun</p>
-      <input type="text" ng-model="ptwo" placeholder="Enter a plural noun...">
-      <p>An insect, plural</p>
-      <input type="text" ng-model="insect" placeholder="Enter an insect, plural">
-      <p>Plural Noun</p>
-      <input type="text" ng-model="pthree" placeholder="Enter a plural noun...">
-      <p>A verb ending in 's'</p>
-      <input type="text" ng-model="verbs" placeholder="Enter a verb ending in 's'...">
-      <br>
-      <button ng-click='boyinput = boy; adjectiveinput = adjective; poneinput = pone; ptwoinput = ptwo; insectinput = insect; pthreeinput = pthree; verbsinput = verbs'>Generate!</button>
-      <h3>Mad with Mad Libs</h3>
-      <h4>I'm in love with <span>{{ boyinput }}</span>. He's so <span>{{ adjectiveinput }}</span>! He has big flat <span>{{ poneinput }}</span>, and when our <span>{{ ptwoinput }}</span> meet, I get <span>{{ insectinput }}</span> in my stomach. I've fallen for him like a ton of <span>{{ pthreeinput }}</span>, and he <span>{{ verbsinput }}</span> for me, too. But I think he's got another girlfriend. What should I do?</h4>
-      <br>
-      <button ng-click='boyinput = ""; boy = ""; adjectiveinput = ""; adjective = ""; poneinput = ""; pone = ""; ptwoinput = ""; ptwo = ""; insectinput = ""; insect = ""; pthreeinput = ""; pthree = ""; verbsinput = ""; verbs = ""'>Play Again?</button>
-      <h2>Part 4 Q and A</h2>
-      <p>1. What are Angular expressions? How do they compare to tags from templating engines you've used before?</p>
-      <p>2. What happens when you write invalid code in an expression? What type of error do you get?</p>
-      <p>3. What are Angular filters? Describe what a filter does and then name four built-in filters, including one that we haven't used yet.</p>
-      <p>4. What's the syntax for filters?</p>
-      <p>5. Can you use more than one filter?</p>
-      <p>6. We'll soon see how to create custom filters. What is a use case for a custom filter?</p>
-      <p>----------------------------------</p>
-      <h1>Part 5: Built-In Directives</h1>
-      <h2>EXERCISE</h2>
-      <p>1. Name at least 3 built-in directives that we have used so far.</p>
-      <p>ng-click, ng-model, and ng-app</p>
-      <div ng-init="harryNames=['Harry', 'Ron', 'Hermione', 'Sirius', 'Hedwig', 'Tonks']">
-        <ul>
-          <li ng-repeat='harryName in harryNames'>
-            {{harryName}}
-          </li>
-        </ul>
-      </div>
-      <h2>Card Symbols</h2>
-      <div ng-init="symbols=[ '&spades;', '&clubs;', '&hearts;', '&diams;']">
-        <ul>
-          <li ng-repeat='symbol in symbols'>
-            {{ symbol }}
-          </li>
-        </ul>
-      </div>
-      <h2>Duplicates</h2>
-      <div ng-init="duplicates=[1,1,2,5,6,9,9,9]">
-        <ul>
-          <li ng-repeat='duplicate in duplicates track by $attributes'>
-            {{ duplicate }}
-          </li>
-        </ul>
-      </div>
-      <h2>Double repeat attribute (I will come back to it)</h2>
-      <h2>Hide and Show Inspect</h2>
-      <div ng-show='3 + 4 == 5'>
-        3 + 4 isn't 5, don't show
-      </div>
-      <p>The expression that is hidden was an ng-show element. It is hidden because the expression is false and a class was automatically added, 'ng-hide', to hide the element.</p>
-      <h2>Password Length Validation</h2>
-      <h4>Sign Up Page</h4>
-      <input type='password' ng-model='password'>
-      <p>Your password is {{ password.length }} characters.</p>
-      <div ng-show='password.length <= 5'>
-        <p>Password is invalid</p>
-      </div>
-      <div ng-show='password.length >= 6'>
-        <button>Sign Up!</button>
-      </div>
-      <h2>Class Highlighting</h2>
-      <div ng-class='{highlight: 4 + 4 == 8}'>4 + 4 = 8</div>
-      <div ng-class='{highlight: 4 + 4 == 10}'>4 + 4 = 10</div>
-      <h2>Password Length Validation with COLOR!</h2>
-      <h4>Sign Up Page</h4>
-      <input type='password' ng-model='password' ng-class='{bad: password.length <= 5, good: password.length >= 6}'>
-      <div ng-class='{bad: password.length <= 5, good: password.length >= 6}'>Your password is {{ password.length }} characters.</div>
-      <div ng-show='password.length <= 5'>
-        <p>Password is invalid</p>
-      </div>
-      <div ng-show='password.length >= 6'>
-        <button>Sign Up!</button>
-      </div>
-      <h2>Part 5 Q and A</h2>
-      <p>1. What is the purpose of ng-init?</p>
-      <p>2. Why use ng-src and ng-href?</p>
-      <p>3. What are directives</p>
-      <p>4. Does ng-class require an object to be passed in?</p>
-      <p>5. What order does an ng-repeat display items in?</p>
-      <p>6. How does ng-repeat handle duplicate data?</p>
-      <p>----------------------------------</p>
-      <h1>Part 6: Intro to Controllers</h1>
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    </body>
-  </html>
-</div>
+    </p>
+    <p>Here you go! The first {{digitPi}} digit of pi!</p>
+    <p>{{3.14159265359| number:digitPi}}
+    <br>
+    <h2>Super Useful Tip Calculator</h2>
+    <p>How much did your meal cost?<input type='number' ng-model='cost'></p>
+    <p>How much do you want to tip?
+      <select ng-model='percentage'>
+        <option value='10'>10%</option>
+        <option value='15'>15%</option>
+        <option value='20'>20%</option>
+      </select>
+    </p>
+    <h3>Subtotal: {{cost | currency}}</h3>
+    <h3>Tip Total: {{cost / percentage | currency}}</h3>
+    <div>{{ this }}
+      <p>What does this tell you about the context of Angular expressions?</p>
+    </div>
+    <h2>Mad Lips</h2>
+    <h3>Please fill out the following form!</h3>
+    <p>Boy's Name</p>
+    <input type="text" ng-model="boy" placeholder="Enter a boy's name...">
+    <p>Adjective</p>
+    <input type="text" ng-model="adjective" placeholder="Enter an adjective...">
+    <p>Plural Noun</p>
+    <input type="text" ng-model="pone" placeholder="Enter a plural noun...">
+    <p>Plural Noun</p>
+    <input type="text" ng-model="ptwo" placeholder="Enter a plural noun...">
+    <p>An insect, plural</p>
+    <input type="text" ng-model="insect" placeholder="Enter an insect, plural">
+    <p>Plural Noun</p>
+    <input type="text" ng-model="pthree" placeholder="Enter a plural noun...">
+    <p>A verb ending in 's'</p>
+    <input type="text" ng-model="verbs" placeholder="Enter a verb ending in 's'...">
+    <br>
+    <button ng-click='boyinput = boy; adjectiveinput = adjective; poneinput = pone; ptwoinput = ptwo; insectinput = insect; pthreeinput = pthree; verbsinput = verbs'>Generate!</button>
+    <h3>Mad with Mad Libs</h3>
+    <h4>I'm in love with <span>{{ boyinput }}</span>. He's so <span>{{ adjectiveinput }}</span>! He has big flat <span>{{ poneinput }}</span>, and when our <span>{{ ptwoinput }}</span> meet, I get <span>{{ insectinput }}</span> in my stomach. I've fallen for him like a ton of <span>{{ pthreeinput }}</span>, and he <span>{{ verbsinput }}</span> for me, too. But I think he's got another girlfriend. What should I do?</h4>
+    <br>
+    <button ng-click='boyinput = ""; boy = ""; adjectiveinput = ""; adjective = ""; poneinput = ""; pone = ""; ptwoinput = ""; ptwo = ""; insectinput = ""; insect = ""; pthreeinput = ""; pthree = ""; verbsinput = ""; verbs = ""'>Play Again?</button>
+    <h2>Part 4 Q and A</h2>
+    <p>1. What are Angular expressions? How do they compare to tags from templating engines you've used before?</p>
+    <p>2. What happens when you write invalid code in an expression? What type of error do you get?</p>
+    <p>3. What are Angular filters? Describe what a filter does and then name four built-in filters, including one that we haven't used yet.</p>
+    <p>4. What's the syntax for filters?</p>
+    <p>5. Can you use more than one filter?</p>
+    <p>6. We'll soon see how to create custom filters. What is a use case for a custom filter?</p>
+    <p>----------------------------------</p>
+    <h1>Part 5: Built-In Directives</h1>
+    <h2>EXERCISE</h2>
+    <p>1. Name at least 3 built-in directives that we have used so far.</p>
+    <p>ng-click, ng-model, and ng-app</p>
+    <div ng-init="harryNames=['Harry', 'Ron', 'Hermione', 'Sirius', 'Hedwig', 'Tonks']">
+      <ul>
+        <li ng-repeat='harryName in harryNames'>
+          {{harryName}}
+        </li>
+      </ul>
+    </div>
+    <h2>Card Symbols</h2>
+    <div ng-init="symbols=[ '&spades;', '&clubs;', '&hearts;', '&diams;']">
+      <ul>
+        <li ng-repeat='symbol in symbols'>
+          {{ symbol }}
+        </li>
+      </ul>
+    </div>
+    <h2>Duplicates</h2>
+    <div ng-init="duplicates=[1,1,2,5,6,9,9,9]">
+      <ul>
+        <li ng-repeat='duplicate in duplicates track by $attributes'>
+          {{ duplicate }}
+        </li>
+      </ul>
+    </div>
+    <h2>Double repeat attribute (I will come back to it)</h2>
+    <h2>Hide and Show Inspect</h2>
+    <div ng-show='3 + 4 == 5'>
+      3 + 4 isn't 5, don't show
+    </div>
+    <p>The expression that is hidden was an ng-show element. It is hidden because the expression is false and a class was automatically added, 'ng-hide', to hide the element.</p>
+    <h2>Password Length Validation</h2>
+    <h4>Sign Up Page</h4>
+    <input type='password' ng-model='password'>
+    <p>Your password is {{ password.length }} characters.</p>
+    <div ng-show='password.length <= 5'>
+      <p>Password is invalid</p>
+    </div>
+    <div ng-show='password.length >= 6'>
+      <button>Sign Up!</button>
+    </div>
+    <h2>Class Highlighting</h2>
+    <div ng-class='{highlight: 4 + 4 == 8}'>4 + 4 = 8</div>
+    <div ng-class='{highlight: 4 + 4 == 10}'>4 + 4 = 10</div>
+    <h2>Password Length Validation with COLOR!</h2>
+    <h4>Sign Up Page</h4>
+    <input type='password' ng-model='password' ng-class='{bad: password.length <= 5, good: password.length >= 6}'>
+    <div ng-class='{bad: password.length <= 5, good: password.length >= 6}'>Your password is {{ password.length }} characters.</div>
+    <div ng-show='password.length <= 5'>
+      <p>Password is invalid</p>
+    </div>
+    <div ng-show='password.length >= 6'>
+      <button>Sign Up!</button>
+    </div>
+    <h2>Part 5 Q and A</h2>
+    <p>1. What is the purpose of ng-init?</p>
+    <p>2. Why use ng-src and ng-href?</p>
+    <p>3. What are directives</p>
+    <p>4. Does ng-class require an object to be passed in?</p>
+    <p>5. What order does an ng-repeat display items in?</p>
+    <p>6. How does ng-repeat handle duplicate data?</p>
+    <p>----------------------------------</p>
+    <h1>Part 6: Intro to Controllers</h1>
+    <div ng-controller='MyFirstController'>
+      <h1>My name is: {{ name }}</h1>
+      <input ng-model="name" type="text" placeholder="What is your name">
+    </div>
+    <div ng-controller="ExercisesController">
+      <p> This should be {{ favColor }}</p>
+      <h3>{{ secondsInACentury | number}}</h3>
+      {{ rightNow | date}}
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
