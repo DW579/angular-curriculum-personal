@@ -1,0 +1,15 @@
+.highlight {
+  background-color: yellow;
+}
+
+.good {
+  color: green;
+}
+
+.bad {
+  color: red;
+}
+
+.onSale {
+  color: orange;
+}
