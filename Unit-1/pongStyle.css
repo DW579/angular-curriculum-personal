@@ -1,0 +1,44 @@
+.playerBox {
+  height: 200px;
+  width: 49%;
+  float: left;
+  margin-left: 5px;
+  background-color: #2C92DF;
+}
+
+.playerTitle {
+  margin-left: 40%;
+  color: white;
+}
+
+.score {
+  color: white;
+  font-size: 100px;
+  margin-left: 43%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.winBox {
+  height: 200px;
+  width: 49%;
+  float: left;
+  margin-left: 5px;
+  background-color: #5FBA7D;
+}
+
+.loseBox {
+  height: 200px;
+  width: 49%;
+  float: left;
+  margin-left: 5px;
+  background-color: #F48024;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}

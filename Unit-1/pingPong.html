@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app='firstApp'>
+  <head>
+    <title>Ping Pong Score keeper</title>
+    <link rel="stylesheet" type="text/css" href="pongStyle.css">
+  </head>
+  <body>
+    <h1>Ping Pong Score Keeper</h1>
+    <div ng-controller='playerController' ng-init='score.resultOne = "neutral"; score.resultTwo = "neutral"'>
+      <div ng-class='{playerBox: score.resultOne == "neutral", winBox: score.resultOne == "win", loseBox: score.resultOne == "lose"}'>
+        <h2 class='playerTitle'>Player 1</h2>
+        <p class='score'
+          ng-model='scoreOne'
+          ng-click='addPointOne()'>{{ scoreOne.point }}</p>
+        <p ng-show=''>Serving</p>
+      </div>
+      <div ng-class='{playerBox: score.resultTwo == "neutral", winBox: score.resultTwo == "win", loseBox: score.resultTwo == "lose"}'>
+        <h2 class='playerTitle'>Player 2</h2>
+        <p class='score'
+          ng-model='scoreTwo'
+          ng-click='addPointTwo()'>{{ scoreTwo.point }}</p>
+        <p ng-show=''>Serving</p>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="pongApp.js"></script>
+  </body>
+</html>

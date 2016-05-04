@@ -170,7 +170,21 @@
     <div ng-controller="ExercisesController">
       <p> This should be {{ favColor }}</p>
       <h3>{{ secondsInACentury | number}}</h3>
-      {{ rightNow | date}}
+      {{ rightNow | date }}
+    </div>
+    <p>----------------------------------</p>
+    <h1>Part 8: Events</h1>
+    <div ng-controller='MyFirstController'>
+      <h3>The number is: {{ view.number }}</h3>
+      <button ng-click="pickRandomNumber()">Pick Random Number</button>
+    </div>
+    <h2>EXERCISE</h2>
+    <p>1. Explain in as much detail as you can what happens when you click the button. Why does number update in the template without us telling it to?</p>
+    <div ng-controller='WordReverserController'>
+      <h3>Word Reverser</h3>
+      <input type='text' ng-model='word' placeholder='Place word here'>
+      <p>Your word is: {{ word }}</p>
+      <button ng-click="reverseWord()">Reverse!</button>
     </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
