@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app='' ng-controller=''>
+  <head>
+    <title>Form Submit</title>
+    <link rel="stylesheet" type="text/css" href="formStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  </head>
+  <body class='container'>
+    <h1>Form Submition</h1>
+    <h2>Here are our Users</h2>
+    <form class='userForm' ng-submit=''>
+      <div class='form-group'>
+        <label for='inputUsername'>Username:</label>
+        <input autofocus id='inputUsername' class="form-control" type='text' ng-model='username' ng-minlength='3' ng-maxlength='12'></input>
+        <p ng-show='userForm.username.$error.minlength' class='help-block'>Make sure it is more then 3 characters.</p>
+        <p ng-show='userForm.username.$error.maxlength' class='help-block'>Don't exceed more then 12 characters.</p>
+      </div>
+      <br>
+      <div>
+        <label>Password:<input class="form-control" type='password' ng-model='password'></input></label>
+      </div>
+      <br>
+      <div>
+        <label>Email:<input class="form-control" type='email' ng-model='email'></input></label>
+      </div>
+      <br>
+      <div>
+        <label>Zip (5 digits):<input class="form-control" type='number' ng-model='zip'></input></label>
+      </div>
+      <br>
+      <input type='submit'></input>
+    </form>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="formApp.js"></script>
+  </body>
+</html>
