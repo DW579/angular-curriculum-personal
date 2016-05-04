@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app='firstApp'>
+  <head>
+    <title>Contacts App</title>
+    <link rel="stylesheet" type="text/css" href="contactsStyle.css">
+  </head>
+  <body>
+    <h1>Contacts App</h1>
+    <div ng-controller='ContactsAppController'>
+      <form ng-submit='submitContact()'>
+        <label>Name:<input type='text' ng-model='newContact.name'></input></label>
+        <label>Email:<input type='text' ng-model='newContact.email'></input></label>
+        <label>Phone:<input type='number' ng-model='newContact.phone'></input></label>
+        <input type='submit'></input>
+      </form>
+      <br>
+      <label>Search:<input type='text' ng-model='searchText'></input></label>
+      <br>
+      <table id='searchTextResults'>
+        <tr><th>Name</th><th>Email</th><th>Phone</th></tr>
+        <tr ng-repeat='person in view.persons | filter:searchText'>
+          <td>{{person.name}}</td>
+          <td>{{person.email}}</td>
+          <td>{{person.phone}}</td>
+        </tr>
+      </table>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="contactsApp.js"></script>
+  </body>
+</html>

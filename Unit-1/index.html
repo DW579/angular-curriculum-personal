@@ -186,6 +186,42 @@
       <p>Your word is: {{ word }}</p>
       <button ng-click="reverseWord()">Reverse!</button>
     </div>
+    <h2>Mouse Enter</h2>
+    <div ng-controller='MyFirstController'>
+      <h3>The div was entered {{view.enterCount}} times</h3>
+      <div class="divbox" ng-mouseenter="randomColor()" ng-style='{"background-color": view.color}'>
+      </div>
+      {{view.color}}
+      <h2>Submit Form</h2>
+      <form ng-submit="submitFav()" name="favPieForm">
+        <input name="name" type="text" ng-model="favoriteForm.name">
+        <input name="favorite_pie" type="text" ng-model="favoriteForm.favoritePie">
+        <input type="submit">
+      </form>
+      Name: {{favoriteForm.name}}<br>
+      Favorite Pi: {{favoriteForm.favoritePie}}
+    </div>
+    <h2>Address Data Book</h2>
+    <div ng-controller='AddressDataController'>
+      <form ng-submit='submitAddress()'>
+        <input type='text' ng-model='addressOne'>Address 1</input>
+        <br>
+        <input type='text' ng-model='addressTwo'>Address 2</input>
+        <br>
+        <input type='text' ng-model='city'>City</input>
+        <br>
+        <input type='text' ng-model='state'>State</input>
+        <br>
+        <input type='number' ng-model='zipcode'>Zipcode</input>
+        <br>
+        <input type='submit'></input>
+      </form>
+      {{view.addressOne}}
+      {{view.addressTwo}}
+      {{view.city}}
+      {{view.state}}
+      {{view.zipcode}}
+    </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </body>
