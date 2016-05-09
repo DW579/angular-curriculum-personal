@@ -33,16 +33,16 @@
       <option value='price'>Price</option>
     </select>
     <div ng-show='order == "rating"' ng-repeat='cameraData in cameraDatas | orderBy: "rating"'>
-      <h3>{{ cameraData.title }} (Rating)</h3>
+      <h3>{{ cameraData.title }}</h3>
       <p ng-class='{onSale: {{ cameraData.onSale }} == true}'>Price: {{ cameraData.price | currency }}<span ng-show='{{ cameraData.onSale }} == true'> On Sale!!</span></p>
       <p>Rating: {{ cameraData.rating }}</p>
-      <img ng-src='{{ cameraData.image }}'/>
+      <img ng-src='{{ cameraData.image }}' height=100px;/>
     </div>
     <div ng-show='order == "price"' ng-repeat='cameraData in cameraDatas | orderBy: "price"'>
-      <h3>{{ cameraData.title }} (Price)</h3>
+      <h3>{{ cameraData.title }}</h3>
       <p ng-class='{onSale: {{ cameraData.onSale }} == true }'>Price: {{ cameraData.price | currency }}<span ng-show='{{ cameraData.onSale }} == true'> On Sale!!</span></p>
       <p>Rating: {{ cameraData.rating }}</p>
-      <img ng-src='{{ cameraData.image }}'/>
+      <img ng-src='{{ cameraData.image }}' height=100px;/>
     </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   </body>
