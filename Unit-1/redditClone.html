@@ -15,21 +15,19 @@
             <input type='text' class='form-control' ng-model='searchText' placeholder='Search'></input>
           </div>
         </form>
-        <li class='dropdown'>
+        <!-- <li class='dropdown'>
           <a class="dropdown-toggle" data-toggle="dropdown" role="button">Sort By <span class="caret"></span></a>
           <ul class='dropdown-menu'>
             <li><a href='#'>Votes</a></li>
             <li><a href='#'>Date</a></li>
-            <li><a href='#' ng-click="order('title')">Title</a></li>
-            <span class="sortorder" ng-show="predicate === 'title'" ng-class="{reverse:reverse}"></span>
+            <li><a href='#'>Title</a></li>
           </ul>
-          <table class="friend">
-            <tr>
-              <th>
-                  <button ng-click="order('name')">Name</button>
-                  <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
-              </th>
-        </li>
+        </li> -->
+        <select ng-init='order = "date"' ng-model='order'>
+          <option value='votes'>Votes</option>
+          <option value='date'>Date</option>
+          <option value='title'>Title</option>
+        </select>
       </ul>
     </nav>
     <div class='container'>
@@ -50,7 +48,8 @@
         <button class='btn btn-default' ng-click='formValidation()'>Submit Post</button>
       </form>
       <br>
-      <div ng-repeat='content in view.submitedContents | filter:searchText'>
+
+      <div ng-show='order == "title"' ng-repeat='content in view.submitedContents | filter:searchText | orderBy:"title"'>
         <div class='row' ng-style='{"background-color": "#4E5D6C"}'>
           <div class='col-md-2'>
             <img class='img' ng-src='{{ content.imageUrl }}' ng-style='{"height": "180px", "width": "100%", "margin-top": "5px", "margin-bottom": "5px"}'/>
@@ -84,14 +83,82 @@
           </div>
         </div>
       </div>
+
+      <div ng-show='order == "votes"' ng-repeat='content in view.submitedContents | filter:searchText | orderBy:"rating"'>
+        <div class='row' ng-style='{"background-color": "#4E5D6C"}'>
+          <div class='col-md-2'>
+            <img class='img' ng-src='{{ content.imageUrl }}' ng-style='{"height": "180px", "width": "100%", "margin-top": "5px", "margin-bottom": "5px"}'/>
+          </div>
+          <div class='col-md-8'>
+            <h1 ng-model='rating' ng-init='rating = 0'>{{ content.title }} | <span class='glyphicon glyphicon-arrow-up' ng-click='rating = rating + 1'></span> <span class='glyphicon glyphicon-arrow-down' ng-click='rating = rating - 1'></span> <span ng-class='{"red": rating < 0, "green": rating > 0}'>{{ rating }}</span></h1>
+            <br>
+            <p>{{ content.description }}</p>
+            <p><span class='glyphicon glyphicon-calendar'></span> {{rightNow | date}} | <span ng-click='comments = !comments'><span class='glyphicon glyphicon-comment'></span> {{(content.comments).length}} <ng-pluralize count='(content.comments).length' when="{'0': 'Comments', '1': 'Comment', 'other': 'Comments'}"></ng-pluralize> | </span><span ng-click='commentForm = !commentForm'><span class='glyphicon glyphicon-pencil'></span> Add Comment</span></p>
+            <form ng-show='commentForm' ng-submit='commentSubmit(content)'>
+              <br>
+              <label>Author: </label>
+              <input type='text' ng-model='content.commentAuthor' placeholder='Enter Author'></input>
+              <label>Text: </label>
+              <input type='text' ng-model='content.commentText' placeholder='Enter Text'></input>
+              <button class='btn btn-default'>Submit Comment</button>
+            </form>
+            <br>
+            <div ng-show='comments' ng-repeat='comment in content.comments | filter:searchText'>
+                <p><strong>{{ comment.commentAuthor }}</strong> - {{ comment.commentText }}</p>
+                <br>
+            </div>
+          </div>
+          <div class='col-md-2'>
+            <p class='author' ng-style='{"margin-top": "5px"}'>By {{ content.author }}</p>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-12'>
+            <br>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show='order == "date"' ng-repeat='content in view.submitedContents | filter:searchText | orderBy:"rightNow"'>
+        <div class='row' ng-style='{"background-color": "#4E5D6C"}'>
+          <div class='col-md-2'>
+            <img class='img' ng-src='{{ content.imageUrl }}' ng-style='{"height": "180px", "width": "100%", "margin-top": "5px", "margin-bottom": "5px"}'/>
+          </div>
+          <div class='col-md-8'>
+            <h1 ng-model='rating' ng-init='rating = 0'>{{ content.title }} | <span class='glyphicon glyphicon-arrow-up' ng-click='rating = rating + 1'></span> <span class='glyphicon glyphicon-arrow-down' ng-click='rating = rating - 1'></span> <span ng-class='{"red": rating < 0, "green": rating > 0}'>{{ rating }}</span></h1>
+            <br>
+            <p>{{ content.description }}</p>
+            <p><span class='glyphicon glyphicon-calendar'></span> {{rightNow | date}} | <span ng-click='comments = !comments'><span class='glyphicon glyphicon-comment'></span> {{(content.comments).length}} <ng-pluralize count='(content.comments).length' when="{'0': 'Comments', '1': 'Comment', 'other': 'Comments'}"></ng-pluralize> | </span><span ng-click='commentForm = !commentForm'><span class='glyphicon glyphicon-pencil'></span> Add Comment</span></p>
+            <form ng-show='commentForm' ng-submit='commentSubmit(content)'>
+              <br>
+              <label>Author: </label>
+              <input type='text' ng-model='content.commentAuthor' placeholder='Enter Author'></input>
+              <label>Text: </label>
+              <input type='text' ng-model='content.commentText' placeholder='Enter Text'></input>
+              <button class='btn btn-default'>Submit Comment</button>
+            </form>
+            <br>
+            <div ng-show='comments' ng-repeat='comment in content.comments | filter:searchText'>
+                <p><strong>{{ comment.commentAuthor }}</strong> - {{ comment.commentText }}</p>
+                <br>
+            </div>
+          </div>
+          <div class='col-md-2'>
+            <p class='author' ng-style='{"margin-top": "5px"}'>By {{ content.author }}</p>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-12'>
+            <br>
+          </div>
+        </div>
+      </div>
+
     </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script type="text/javascript" src="redditCloneApp.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
-    <script>
-      angular.module('animateApp',['ngAnimate']);
-    </script>
   </body>
 </html>

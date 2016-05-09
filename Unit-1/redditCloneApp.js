@@ -23,6 +23,9 @@ app.controller('redditController', function($scope) {
     }
   }
   $scope.rightNow = new Date();
+  $scope.$watch('searchText', function(oldValue, newValue) {
+    console.log('text changed from', oldValue, 'to', newValue);
+  })
 })
 
 app.controller('sortController', ['$scope', '$filter', function($scope, $filter){
