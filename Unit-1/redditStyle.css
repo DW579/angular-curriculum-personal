@@ -5,3 +5,11 @@
 .red {
   color: red;
 }
+
+.ng-enter {
+  animation: flipInX 2s;
+}
+
+.ng-leave {
+  animation: hinge 1.5s;
+}

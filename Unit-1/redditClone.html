@@ -4,8 +4,9 @@
     <title>Reddit Clone App</title>
     <link rel="stylesheet" href="https://bootswatch.com/superhero/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="redditStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
   </head>
-  <body ng-controller='redditController', 'sortController'>
+  <body ng-controller='redditController'>
     <nav class='navbar navbar-default'>
       <a class='navbar-brand'>Reddit Clone</a>
       <ul class='nav navbar-nav'>
@@ -39,7 +40,7 @@
 
         <div class="form-group" ng-class="{ 'has-error' : postForm.imageUrl.$invalid && !postForm.imageUrl.$pristine ,'has-success' : postForm.imageUrl.$valid }">
           <label class="control-label" for="imageUrl">Image URL:</label>
-          <input autofocus type="text" name="imageUrl" class="form-control" ng-model="newContent.imageUrl" ng-required="true" id="imageUrl" placeholder='Enter Image URL' required>
+          <input autofocus type="url" name="imageUrl" class="form-control" ng-model="newContent.imageUrl" ng-required="true" id="imageUrl" placeholder='Enter Image URL' required>
           <p ng-show="postForm.imageUrl.$invalid && !postForm.imageUrl.$pristine" class="help-block">Please enter an Image URL.</p>
         </div>
 
@@ -47,18 +48,19 @@
           <label class="control-label" for="description">Description:</label>
           <input autofocus type="text" name="description" class="form-control" ng-model="newContent.description" ng-required="true" id="description" placeholder='Enter a post description' required>
           <p ng-show="postForm.description.$invalid && !postForm.description.$pristine" class="help-block">Please enter a post description.</p>
+          <input ng-hide='true' ng-model='newContent.rating'></input>
         </div>
 
         <button class='btn btn-default' ng-disabled="postForm.$invalid">Submit Post</button>
       </form>
       <br>
-      <div ng-repeat='content in view.submitedContents | filter:searchText | orderBy:order | orderBy:"rating"'>
+      <div ng-repeat='content in view.submitedContents | filter:searchText | orderBy:order | orderBy:"-rating"'>
         <div class='row' ng-style='{"background-color": "#4E5D6C"}'>
           <div class='col-md-2'>
             <img class='img' ng-src='{{ content.imageUrl }}' ng-style='{"height": "180px", "width": "100%", "margin-top": "5px", "margin-bottom": "5px"}'/>
           </div>
           <div class='col-md-8'>
-            <h1 ng-model='rating' ng-init='rating = 0'>{{ content.title }} | <span class='glyphicon glyphicon-arrow-up' ng-click='rating = rating + 1'></span> <span class='glyphicon glyphicon-arrow-down' ng-click='rating = rating - 1'></span> <span ng-class='{"red": rating < 0, "green": rating > 0}'>{{ rating }}</span></h1>
+            <h1 ng-model='vote'>{{ content.title }} | <span class='glyphicon glyphicon-arrow-up' ng-click='content.rating = content.rating + 1'></span> <span class='glyphicon glyphicon-arrow-down' ng-click='content.rating = content.rating - 1'></span> <span ng-class='{"red": content.rating < 0, "green": content.rating > 0}'>{{ content.rating }}</span></h1>
             <br>
             <p>{{ content.description }}</p>
             <p><span class='glyphicon glyphicon-calendar'></span> {{rightNow | date}} | <span ng-click='comments = !comments'><span class='glyphicon glyphicon-comment'></span> {{(content.comments).length}} <ng-pluralize count='(content.comments).length' when="{'0': 'Comments', '1': 'Comment', 'other': 'Comments'}"></ng-pluralize> | </span><span ng-click='commentForm = !commentForm'><span class='glyphicon glyphicon-pencil'></span> Add Comment</span></p>
@@ -87,10 +89,10 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script type="text/javascript" src="redditCloneApp.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+    <script type="text/javascript" src="redditCloneApp.js"></script>
   </body>
 </html>

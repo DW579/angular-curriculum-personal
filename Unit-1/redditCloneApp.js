@@ -1,7 +1,8 @@
-var app = angular.module("redditApp", []);
+var app = angular.module("redditApp", ['ngAnimate']);
 
 app.controller('redditController', function($scope) {
   $scope.view = {};
+  $scope.view.instructors = ["Tim", "Ian", "Matt", "Elie"];
   $scope.newContent = {};
   $scope.newComment = {};
   $scope.view.submitedContents = [];
@@ -19,24 +20,5 @@ app.controller('redditController', function($scope) {
     content.commentAuthor = "";
     content.commentText = "";
   }
-  $scope.formValidation = function() {
-    var error = {"background-color": "red"};
-    if($scope.newContent.title == "") {
-      return error;
-    }
-  }
   $scope.rightNow = new Date();
-  $scope.$watch('searchText', function(oldValue, newValue) {
-    console.log('text changed from', oldValue, 'to', newValue);
-  })
 })
-
-app.controller('sortController', ['$scope', '$filter', function($scope, $filter){
-  var orderBy = $filter('orderBy');
-  $scope.order = function(predicate) {
-    $scope.predicate = predicate;
-    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-    $scope.friends = orderBy($scope.friends, predicate, $scope.reverse);
-  };
-  $scope.order('title', true);
-}])
