@@ -15,41 +15,44 @@
             <input type='text' class='form-control' ng-model='searchText' placeholder='Search'></input>
           </div>
         </form>
-        <!-- <li class='dropdown'>
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button">Sort By <span class="caret"></span></a>
-          <ul class='dropdown-menu'>
-            <li><a href='#'>Votes</a></li>
-            <li><a href='#'>Date</a></li>
-            <li><a href='#'>Title</a></li>
-          </ul>
-        </li> -->
-        <select ng-init='order = "date"' ng-model='order'>
-          <option value='votes'>Votes</option>
+        <select ng-init='order = "title"' ng-model='order'>
+          <option value='rating'>Votes</option>
           <option value='date'>Date</option>
           <option value='title'>Title</option>
         </select>
       </ul>
     </nav>
     <div class='container'>
-      <form ng-show='form' ng-submit='submitNewContent()'>
-        <label>Title</label>
-        <input autofocus type='text' class='form-control' ng-model='newContent.title' placeholder='Enter Title' ng-style='formValidation()' required></input>
-        <span ng-show='form.newContent.title.$invalid'>Please provide a title</span>
-        <br>
-        <label>Author</label>
-        <input type='text' class='form-control' ng-model='newContent.author' placeholder='Enter Author' required></input>
-        <br>
-        <label>Image URL</label>
-        <input type='url' class='form-control' ng-model='newContent.imageUrl' placeholder='Enter URL' required></input>
-        <br>
-        <label>Description</label>
-        <input type='text' class='form-control' ng-model='newContent.description' placeholder='Enter Description' required></input>
-        <br>
-        <button class='btn btn-default' ng-click='formValidation()'>Submit Post</button>
+      <form name='postForm' ng-show='form' ng-submit='submitNewContent(postForm.$valid)'>
+
+        <div class="form-group" ng-class="{ 'has-error' : postForm.title.$invalid && !postForm.title.$pristine ,'has-success' : postForm.title.$valid }">
+          <label class="control-label" for="title">Title:</label>
+          <input autofocus type="text" name="title" class="form-control" ng-model="newContent.title" ng-required="true" id="title" placeholder='Enter Title' required>
+          <p ng-show="postForm.title.$invalid && !postForm.title.$pristine" class="help-block">Please enter a title.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : postForm.author.$invalid && !postForm.author.$pristine ,'has-success' : postForm.author.$valid }">
+          <label class="control-label" for="author">Author:</label>
+          <input autofocus type="text" name="author" class="form-control" ng-model="newContent.author" ng-required="true" id="author" placeholder='Enter Author' required>
+          <p ng-show="postForm.author.$invalid && !postForm.author.$pristine" class="help-block">Please enter an author's name.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : postForm.imageUrl.$invalid && !postForm.imageUrl.$pristine ,'has-success' : postForm.imageUrl.$valid }">
+          <label class="control-label" for="imageUrl">Image URL:</label>
+          <input autofocus type="text" name="imageUrl" class="form-control" ng-model="newContent.imageUrl" ng-required="true" id="imageUrl" placeholder='Enter Image URL' required>
+          <p ng-show="postForm.imageUrl.$invalid && !postForm.imageUrl.$pristine" class="help-block">Please enter an Image URL.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : postForm.description.$invalid && !postForm.description.$pristine ,'has-success' : postForm.description.$valid }">
+          <label class="control-label" for="description">Description:</label>
+          <input autofocus type="text" name="description" class="form-control" ng-model="newContent.description" ng-required="true" id="description" placeholder='Enter a post description' required>
+          <p ng-show="postForm.description.$invalid && !postForm.description.$pristine" class="help-block">Please enter a post description.</p>
+        </div>
+
+        <button class='btn btn-default' ng-disabled="postForm.$invalid">Submit Post</button>
       </form>
       <br>
-
-      <div ng-show='order == "title"' ng-repeat='content in view.submitedContents | filter:searchText | orderBy:"title"'>
+      <div ng-repeat='content in view.submitedContents | filter:searchText | orderBy:order | orderBy:"rating"'>
         <div class='row' ng-style='{"background-color": "#4E5D6C"}'>
           <div class='col-md-2'>
             <img class='img' ng-src='{{ content.imageUrl }}' ng-style='{"height": "180px", "width": "100%", "margin-top": "5px", "margin-bottom": "5px"}'/>
@@ -83,77 +86,6 @@
           </div>
         </div>
       </div>
-
-      <div ng-show='order == "votes"' ng-repeat='content in view.submitedContents | filter:searchText | orderBy:"rating"'>
-        <div class='row' ng-style='{"background-color": "#4E5D6C"}'>
-          <div class='col-md-2'>
-            <img class='img' ng-src='{{ content.imageUrl }}' ng-style='{"height": "180px", "width": "100%", "margin-top": "5px", "margin-bottom": "5px"}'/>
-          </div>
-          <div class='col-md-8'>
-            <h1 ng-model='rating' ng-init='rating = 0'>{{ content.title }} | <span class='glyphicon glyphicon-arrow-up' ng-click='rating = rating + 1'></span> <span class='glyphicon glyphicon-arrow-down' ng-click='rating = rating - 1'></span> <span ng-class='{"red": rating < 0, "green": rating > 0}'>{{ rating }}</span></h1>
-            <br>
-            <p>{{ content.description }}</p>
-            <p><span class='glyphicon glyphicon-calendar'></span> {{rightNow | date}} | <span ng-click='comments = !comments'><span class='glyphicon glyphicon-comment'></span> {{(content.comments).length}} <ng-pluralize count='(content.comments).length' when="{'0': 'Comments', '1': 'Comment', 'other': 'Comments'}"></ng-pluralize> | </span><span ng-click='commentForm = !commentForm'><span class='glyphicon glyphicon-pencil'></span> Add Comment</span></p>
-            <form ng-show='commentForm' ng-submit='commentSubmit(content)'>
-              <br>
-              <label>Author: </label>
-              <input type='text' ng-model='content.commentAuthor' placeholder='Enter Author'></input>
-              <label>Text: </label>
-              <input type='text' ng-model='content.commentText' placeholder='Enter Text'></input>
-              <button class='btn btn-default'>Submit Comment</button>
-            </form>
-            <br>
-            <div ng-show='comments' ng-repeat='comment in content.comments | filter:searchText'>
-                <p><strong>{{ comment.commentAuthor }}</strong> - {{ comment.commentText }}</p>
-                <br>
-            </div>
-          </div>
-          <div class='col-md-2'>
-            <p class='author' ng-style='{"margin-top": "5px"}'>By {{ content.author }}</p>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-md-12'>
-            <br>
-          </div>
-        </div>
-      </div>
-
-      <div ng-show='order == "date"' ng-repeat='content in view.submitedContents | filter:searchText | orderBy:"rightNow"'>
-        <div class='row' ng-style='{"background-color": "#4E5D6C"}'>
-          <div class='col-md-2'>
-            <img class='img' ng-src='{{ content.imageUrl }}' ng-style='{"height": "180px", "width": "100%", "margin-top": "5px", "margin-bottom": "5px"}'/>
-          </div>
-          <div class='col-md-8'>
-            <h1 ng-model='rating' ng-init='rating = 0'>{{ content.title }} | <span class='glyphicon glyphicon-arrow-up' ng-click='rating = rating + 1'></span> <span class='glyphicon glyphicon-arrow-down' ng-click='rating = rating - 1'></span> <span ng-class='{"red": rating < 0, "green": rating > 0}'>{{ rating }}</span></h1>
-            <br>
-            <p>{{ content.description }}</p>
-            <p><span class='glyphicon glyphicon-calendar'></span> {{rightNow | date}} | <span ng-click='comments = !comments'><span class='glyphicon glyphicon-comment'></span> {{(content.comments).length}} <ng-pluralize count='(content.comments).length' when="{'0': 'Comments', '1': 'Comment', 'other': 'Comments'}"></ng-pluralize> | </span><span ng-click='commentForm = !commentForm'><span class='glyphicon glyphicon-pencil'></span> Add Comment</span></p>
-            <form ng-show='commentForm' ng-submit='commentSubmit(content)'>
-              <br>
-              <label>Author: </label>
-              <input type='text' ng-model='content.commentAuthor' placeholder='Enter Author'></input>
-              <label>Text: </label>
-              <input type='text' ng-model='content.commentText' placeholder='Enter Text'></input>
-              <button class='btn btn-default'>Submit Comment</button>
-            </form>
-            <br>
-            <div ng-show='comments' ng-repeat='comment in content.comments | filter:searchText'>
-                <p><strong>{{ comment.commentAuthor }}</strong> - {{ comment.commentText }}</p>
-                <br>
-            </div>
-          </div>
-          <div class='col-md-2'>
-            <p class='author' ng-style='{"margin-top": "5px"}'>By {{ content.author }}</p>
-          </div>
-        </div>
-        <div class='row'>
-          <div class='col-md-12'>
-            <br>
-          </div>
-        </div>
-      </div>
-
     </div>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script type="text/javascript" src="redditCloneApp.js"></script>
