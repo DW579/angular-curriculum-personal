@@ -8,7 +8,6 @@ app.controller('MovieSearchController', function($scope, $http, $location) {
   $scope.ajaxCall = function() {
     $http.get('http://www.omdbapi.com/?s='+ $scope.view.searchInput +'&y=&plot=full&r=json').then(function(data) {
       $scope.view.calledContent = data.data.Search;
-      console.log($scope.view.calledContent);
     });
   }
 

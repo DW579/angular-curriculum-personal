@@ -15,14 +15,13 @@
     </form>
   </div>
 </div>
-<div ng-repeat='content in view.calledContent'>
-  <div class='row'>
-    <div class='col-md-12 text-center'>
-      <div ng-click='secondCall($index)' ng-style='{"height": "40%", "width": "40%", "background-color": "#87CEFA"}'>
-        <h5>{{content.Title}}</h5>
-        <h6>{{content.Year}}</h6>
-        <h6>{{content.Type}}</h6>
-      </div>
-    </div>
-  </div>
+
+<div class='row text-center' ng-repeat='content in view.calledContent'>
+  <table class='table table-bordered'>
+    <td ng-click='secondCall($index)'>
+      <h5>{{content.Title}}</h5>
+      <h6>{{content.Year}}</h6>
+      <h6>{{content.Type}}</h6>
+    </td>
+  </table>
 </div>
