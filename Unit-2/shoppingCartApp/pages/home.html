@@ -1,0 +1,75 @@
+<br>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-9'>
+      <label>Search by category:</label>
+      <select ng-model='categorySearch'>
+        <option></option>
+        <option value='awesome'>Awesome</option>
+        <option value='cold'>Cold</option>
+        <option value='dark'>Dark</option>
+        <option value='dry'>Dry</option>
+        <option value='hot'>Hot</option>
+        <option value='lucid'>Lucid</option>
+        <option value='spring'>Spring</option>
+        <option value='summer'>Summer</option>
+        <option value='warm'>Warm</option>
+        <option value='winter'>Winter</option>
+      </select>
+      <label>Search by name: </label>
+      <input ng-model='searchText'></input>
+    </div>
+    <div class='col-md-3'>
+      <a href='/#/checkout'><button class="btn btn-info" ng-style='{"float": "right"}' ng-click='checkOut'>Checkout | Bag: {{view.bag}}</button></a>
+    </div>
+  </div>
+  <br>
+
+  <div class='row'>
+    <table class='table table-bordered'>
+      <tr>
+        <td>Tea</td>
+        <td>Information
+          <div ng-style='{"float": "right"}'>
+            <label>Sort By Price:</label>
+            <select ng-model='sortBy'>
+              <option></option>
+              <option value='-"price"'>Highest</option>
+              <option value='"price"'>Lowest</option>
+            </select>
+          </div>
+        </td>
+      </tr>
+      <tr ng-repeat='tea in teas | filter:searchText | orderBy: sortBy | filter:categorySearch'>
+        <td><img ng-src='{{tea.imageUrl}}' ng-style='{"float": "left"}'></img></td>
+        <td>
+          <button class="btn btn-success" ng-click='addToBag(tea)' ng-style='{"float": "right"}'>Add to Bag</button>
+          <select ng-model='tea.orderQty' ng-style='{"float": "right"}'>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value=5>5</option>
+            <option value=6>6</option>
+            <option value=7>7</option>
+            <option value=8>8</option>
+            <option value=9>9</option>
+            <option value=10>10</option>
+          </select>
+          <p ng-style='{"float": "right"}'>Quanity: </p>
+          <h3>{{tea.name}}</h3>
+          <h5><strong>Price: </strong>{{tea.price / 100 | currency}}</h5>
+          <h5><strong>Caffeine Scale: </strong>{{tea.caffeineScale}}</h5>
+          <h5><strong>Ingredients: </strong>{{tea.ingredients}}</h5>
+          <h5><strong>Rating: </strong>{{tea.rating}}</h5>
+          <h5 ng-show='{{tea.inStock}}'><strong>In Stock: </strong>Yes</h5>
+          <h5 ng-show='{{tea.inStock}} == false'><strong>In Stock: </strong>No</h5>
+          <h5><strong>Categories: </strong></h5>
+          <ul ng-repeat='category in tea.categories'>
+            <li>{{category}}</li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

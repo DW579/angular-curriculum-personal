@@ -1,0 +1,41 @@
+<br>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-6'>
+      <h1 ng-style='{"float": "left"}'>My Shopping Bag</h1>
+    </div>
+    <div class='col-md-6'>
+      <h1 ng-style='{"float": "right"}'>Order Total: {{orderTotal | currency}}</h1>
+    </div>
+  </div>
+  <div class='row'>
+    <table class='table table-bordered'>
+      <tr>
+        <td>Product</td>
+        <td>Quanity</td>
+        <td>Sub-total</td>
+      </tr>
+      <tr ng-repeat='tea in teas' ng-show='tea.orderQty > 0'>
+        <td>
+          <h3>{{tea.name}}</h3>
+          <img ng-src='{{tea.imageUrl}}'></img>
+          <h5><strong>Caffeine Scale: </strong>{{tea.caffeineScale}}</h5>
+          <h5><strong>Ingredients: </strong>{{tea.ingredients}}</h5>
+          <h5><strong>Rating: </strong>{{tea.rating}}</h5>
+        </td>
+        <td>
+          <h5>{{tea.orderQty}}</h5>
+          <form ng-show='showInput'>
+            <input type='number' ng-model='tea.edit' ng-style='{"width": "100%"}'></input>
+            <button class="btn btn-warning" ng-style='{"width": "100%"}' ng-click='editQty($index)'>Edit</button>
+          </form>
+        </td>
+        <td><h5>{{tea.price * tea.orderQty / 100 | currency}}</h5></td>
+        <td>
+          <button class="btn btn-warning" ng-style='{"float": "left"}' ng-click='showInput = !showInput'>Edit</button>
+          <button class="btn btn-danger" ng-style='{"float": "right"}' ng-click='remove($index)'>Remove</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
